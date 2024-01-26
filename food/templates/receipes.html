@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"> {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recipe Project</title>
+
+    <style>
+        .receipe-box {
+            position: relative;
+            width: 100%;
+            height: auto;
+            border: 1px solid #000;
+            overflow: hidden;
+            margin-bottom: 20px;
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+    
+        .receipe-box:hover {
+            transform: scale(1.05);
+        }
+    
+        .receipe-image {
+            width: 100%;
+            height: 200px;
+            /* Adjust the height as desired */
+            object-fit: cover;
+        }
+    
+        .receipe-details {
+            color: white;
+        }
+    
+        .hidden {
+            display: none;
+        }
+        
+        /* Header Styles */
+        .header {
+            /* ... other styles ... */
+            display: flex;
+            justify-content: flex-end;
+        }
+    
+        .Login-button,
+        .add-recipe-button {
+            /* ... other button styles ... */
+            font-size: 14px;
+            /* Adjust the font size to change the button size */
+            padding: 10px 20px;
+            /* Adjust the padding values as per your preference */
+            margin: 10px 0;
+            /* Remove the margin-right property */
+            /* ... other button styles ... */
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    
+
+        .add-recipe-button {
+            --c: #fff;
+            /* text color */
+            --_p: 100%;
+            /* progress for gradient background */
+            --_i: -1;
+            /* rotation direction */
+            background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p)/300% no-repeat;
+            background-color: #000000;
+            color: #0000;
+            border: none;
+            transform: perspective(500px) rotateY(calc(20deg * var(--_i)));
+            text-shadow: calc(var(--_i) * 0.08em) -.01em 0 var(--c), calc(var(--_i) * -0.08em) .01em 2px #0004;
+            outline-offset: .1em;
+            transition: 0.3s;
+            font-family: system-ui, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 5px 10px;
+            /* Adjust the padding values as per your preference */
+            position: absolute;
+            top: 10px;
+            right: 30px;
+        }
+    
+        
+        .add-recipe-button:hover,
+        .add-recipe-button:focus-visible {
+            --_p: 0%;
+            --_i: 1;
+        }
+    
+        
+        .add-recipe-button:active {
+            text-shadow: none;
+            color: var(--c);
+            box-shadow: inset 0 0 9e9q #0005;
+            transition: 0s;
+        }
+    
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-content: center;
+            background: url('{% static "images/hardik.jpg" %}') no-repeat fixed;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+    
+        .footer {
+            background-image: url('{% static "images/footer-background.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    
+         .Login-button {
+            --c: #fff;
+            /* text color */
+            --_p: 100%;
+            /* progress for gradient background */
+            --_i: -1;
+            /* rotation direction */
+            background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p)/300% no-repeat;
+            background-color: #000000;
+            color: #0000;
+            border: none;
+            transform: perspective(500px) rotateY(calc(20deg * var(--_i)));
+            text-shadow: calc(var(--_i) * 0.08em) -.01em 0 var(--c), calc(var(--_i) * -0.08em) .01em 2px #0004;
+            outline-offset: .1em;
+            transition: 0.3s;
+            font-family: system-ui, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 5px 10px;
+            /* Adjust the padding values as per your preference */
+            position: absolute;
+            top: 10px;
+            right: 200px;
+        }
+
+
+        .Login-button:hover,
+        .Login-button:focus-visible {
+             --_p: 0%;
+             --_i: 1;
+        }
+
+        .Login-button:active {
+            text-shadow: none;
+            color: var(--c);
+            cursor: pointer; /* Fix the cursor value here */
+            box-shadow: inset 0 0 9e9q #0005; /* Check if this is intended */
+            transition: 0s;
+        }
+
+        .Register-button{
+            --c: #fff;
+            /* text color */
+            --_p: 100%;
+            /* progress for gradient background */
+            --_i: -1;
+            /* rotation direction */
+            background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p)/300% no-repeat;
+            background-color: #000000;
+            color: #0000;
+            border: none;
+            transform: perspective(500px) rotateY(calc(20deg * var(--_i)));
+            text-shadow: calc(var(--_i) * 0.08em) -.01em 0 var(--c), calc(var(--_i) * -0.08em) .01em 2px #0004;
+            outline-offset: .1em;
+            transition: 0.3s;
+            font-family: system-ui, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 5px 10px;
+            /* Adjust the padding values as per your preference */
+            position: absolute;
+            top: 10px;
+            right: 290px;
+        }
+
+        .Register-button:hover,
+        .Register-button:focus-visible {
+             --_p: 0%;
+             --_i: 1;
+        }
+
+        .Register-button:active {
+            text-shadow: none;
+            color: var(--c);
+            cursor: pointer; /* Fix the cursor value here */
+            box-shadow: inset 0 0 9e9q #0005; /* Check if this is intended */
+            transition: 0s;
+        }
+
+        .user-button{
+
+            --c: #fff;
+            /* text color */
+            --_p: 100%;
+            /* progress for gradient background */
+            --_i: -1;
+            /* rotation direction */
+            background: linear-gradient(90deg, #0000 33%, #fff5, #0000 67%) var(--_p)/300% no-repeat;
+            background-color: #000000;
+            color: #0000;
+            border: none;
+            transform: perspective(500px) rotateY(calc(20deg * var(--_i)));
+            text-shadow: calc(var(--_i) * 0.08em) -.01em 0 var(--c), calc(var(--_i) * -0.08em) .01em 2px #0004;
+            outline-offset: .1em;
+            transition: 0.3s;
+            font-family: system-ui, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            margin: 10px 0;
+            cursor: pointer;
+            padding: 5px 10px;
+            /* Adjust the padding values as per your preference */
+            position: absolute;
+            top: 10px;
+            right: 290px;
+
+        }
+
+        .user-button:hover,
+        .user-button:focus-visible {
+             --_p: 0%;
+             --_i: 1;
+        }
+
+        .user-button:active {
+            text-shadow: none;
+            color: var(--c);
+            cursor: pointer; /* Fix the cursor value here */
+            box-shadow: inset 0 0 9e9q #0005; /* Check if this is intended */
+            transition: 0s;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div class="header">
+        <div class="button-container">
+           
+            <a href="{% url 'login' %}" class="Login-button">Login</a>
+            {% if user_authenticated %}
+                <a href="{% url 'user_profile' %}" class="user-button">User Profile</a>
+                <button class="add-recipe-button" onclick="redirectToAddRecipe()">
+                    <span class="btn-txt">ADD RECIPES</span>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class="container mt-5">
+
+
+        <div class="mt-5">
+            <div class="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <form method="GET" action="{% url 'receipes' %}" class="search-container">
+                    <input type="text" class="form-control" name="search" placeholder="Search Recipes">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="container mt-5">
+                <div class="row">
+                    {% for receipe in receipes %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="receipe-box" style="background-color:darkslategray;">
+                            <a href="/recipe/{{ receipe.id }}/ ">
+                                <img class="receipe-image " src="{{ receipe.receipe_image.url }} " alt="Recipe Image ">
+                            </a>
+                            <div class="receipe-details {% if receipe.id in expanded_recipes %}visible{% endif %} " data-receipe-id="{{ receipe.id }} ">
+                                <h4>{{ receipe.receipe_name }}</h4>
+                                <p>{{ receipe.receipe_description }}</p>
+                                <div class="receipe-actions ">
+                                    <a href="/delete-receipe/{{ receipe.id }}/ " class="btn btn-danger m-2 ">Delete</a>
+                                    <a href="/update-receipe/{{ receipe.id }}/ " class="btn btn-success ">Update</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if receipes.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ receipes.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ receipes.number }} of {{ receipes.paginator.num_pages }}.
+            </span>
+
+            {% if receipes.has_next %}
+                <a href="?page={{ receipes.next_page_number }}">next</a>
+                <a href="?page={{ receipes.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    <div class="footer ">
+        <!-- Footer content goes here -->
+        <p>&copy; 2023 Recipe Project. All rights reserved.</p>
+    </div>
+    <script>
+        function redirectToAddRecipe() {
+            window.location.href = "add_receipe.html ";
+        }
+
+
+    </script>
+</body>
+
+</html>
+
+</html>
